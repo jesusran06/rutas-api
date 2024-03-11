@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+python-multipart
+python-jose[all] 
+databases[postgresql]
+sqlalchemy
+passlib
+psycopg2

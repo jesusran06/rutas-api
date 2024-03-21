@@ -35,6 +35,7 @@ def getUserLocations(db: Session, rol: int):
     else:
         print('else')
         locations = db.query(UserModel).filter(UserModel.active == True, UserModel.rol_id == 1).all()
+        print(locations)
     if locations is None:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail= "Not users active")
     serialized_locations = [

@@ -17,12 +17,12 @@ def create_token(data: dict):
     encoded_token = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return  encoded_token
 
-async def authenticated_user(ci, password, db):
-    user = db.query(UserModel).filter(UserModel.ci == ci).first()
+def authenticated_user(email, password, db):
+    user = db.query(UserModel).filter(UserModel.email == email).first()
     if not user:
-        raise HTTPException(status_code=401, detail="Credenciales invalidas", headers={"WWW-Authenticate": "Bearer"})
+        raise HTTPException(status_code=401, detail="Could not validate credentials", headers={"WWW-Authenticate": "Bearer"})
     if not verify_password(password, user.hashed_password):
-        raise HTTPException(status_code=401, detail="Credenciales invalidas", headers={"WWW-Authenticate": "Bearer"})
+        raise HTTPException(status_code=401, detail="Could not validate credentials", headers={"WWW-Authenticate": "Bearer"})
     return user
 
 

@@ -1,13 +1,5 @@
 from pydantic import BaseModel
-
-class RolBase(BaseModel):
-    name: str
-
-class RolCreate(RolBase):
-    pass
-
-class Rol(RolBase):
-    id: int
-
-    class Config:
-        from_attributes = True
+from app.schemas.Coordenate import Coordenate
+from typing import List
+class Rol(BaseModel):
+    name:str

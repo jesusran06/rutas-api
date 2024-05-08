@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, Boolean, ForeignKey, Date, BigInteger
+from sqlalchemy import Column, String, Integer, Boolean, ForeignKey, Float
 from app.config.database import Base
 from sqlalchemy.orm import relationship
 
@@ -6,20 +6,14 @@ class User(Base):
     __tablename__ = 'User'
     
     id = Column(Integer, primary_key=True, index=True)
-    ci = Column(Integer, unique=True, nullable=False)
-    ci_type = Column(String, nullable=True)
-    name = Column(String,  nullable=False)
-    last_name = Column(String, nullable=False)
-    phone = Column(BigInteger, nullable=True)
+    email = Column(String, unique=True)
+    full_name = Column(String,  nullable=False)
     hashed_password = Column(String, nullable=False)
-    rol_id = Column(Integer, ForeignKey("Rol.id"), nullable=False)
+    disabled= Column(Boolean, nullable=False, default=False)
+    rol_id = Column(Integer, ForeignKey("Rol.id"))
     active = Column(Boolean, nullable=False)
-    date = Column(Date, nullable=False)
-    created_at = Column(Date, nullable=False)
-    updated_at = Column(Date, nullable=False)
+    last_latitude = Column(Float)
+    last_longitude = Column(Float)
     
-    
+    route = relationship("Route", back_populates="user")
     rol = relationship("Rol", back_populates="user")
-    schedule = relationship("Schedule", back_populates="user")
-    historyAsist = relationship("HistoryAsist", back_populates="user")
-    historyAction = relationship("HistoryAction", back_populates="user")
